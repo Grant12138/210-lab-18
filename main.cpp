@@ -17,15 +17,16 @@ struct Review
 };
 
 // Function prototypes
-Review* getReview(Review* &);
+Review* getReview();
 int getChoice();
-void stackReview();
-void queueReview();
+void stackReview(Review* &, Review*);
+void queueReview(Review* &, Review*);
+void displayReview(Review*);
 
 int main()
 {
     Review* head = nullptr;
-    Review* aReview = getReview(head);
+    Review* aReview = getReview();
 
     cout << "Which linked list method should we use?\n";
     cout << "    [1] New nodes are added at the head of the linked list\n";
@@ -33,14 +34,14 @@ int main()
     int choice = getChoice();
 
     if (choice == 1)
-        stackReview();
+        stackReview(head, aReview);
     else
-        queueReview();
+        queueReview(head, aReview);
 
     return 0;
 }
 
-Review* getReview(Review* &head)
+Review* getReview()
 {
     Review* newReview = new Review();
 
@@ -95,5 +96,30 @@ int getChoice()
 
 void stackReview(Review* &head, Review* aReview)
 {
+    if (head == nullptr)
+        head = aReview;
+    else
+    {
+        aReview->next = head;
+        aReview->prev = head->prev;
+        head = aReview;
+    }
+}
 
+void queueReview(Review* &head, Review* aReview)
+{
+    if (head == nullptr)
+        head = aReview;
+    else
+    {
+        head->next = aReview;
+        aReview->prev = head;
+        head = aReview;
+    }
+}
+
+void displayReview(Review* head)
+{
+    const Review* current = head;
+    while (currenp)
 }
