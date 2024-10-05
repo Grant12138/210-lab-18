@@ -23,12 +23,12 @@ void stackReview(Review* &, Review*);
 void queueReview(Review* &, Review*);
 void displayReview(Review*);
 bool anotherReview();
+void deleteList(Review* &);
 
 int main()
 {
     Review* stackHead = nullptr; // this head will always be at the front
     Review* queueHead = nullptr; // this head will always be at the end
-    Review* aReview = getReview();
 
     do
     {
@@ -38,11 +38,17 @@ int main()
         int choice = getChoice();
 
         if (choice == 1)
-            stackReview(stackHead, aReview);
+            stackReview(stackHead, getReview());
         else
-            queueReview(queueHead, aReview);
+            queueReview(queueHead, getReview());
     }
     while (anotherReview());
+
+    displayReview(stackHead);
+
+    deleteList(stackHead);
+    stackHead = nullptr;
+    queueHead = nullptr;
 
     return 0;
 }
@@ -139,11 +145,33 @@ void displayReview(Review* head)
         sum += current->rating;
         current = current->next;
     }
+
+    cout << "    > Average: " << sum / i << '\n';
 }
 
 bool anotherReview()
 {
     char yesOrNo;
-    cout << "Enter another review? Y/N: ";
-    cin
+    while (true)
+    {
+        cout << "Enter another review? Y/N: ";
+        cin >> yesOrNo;
+        cin.ignore(1000, '\n');
+        if (yesOrNo == 'Y' || yesOrNo == 'y')
+            return true;
+        if (yesOrNo == 'N' || yesOrNo == 'n')
+            return false;
+        cout << "You did not enter a valid response\n";
+    }
+}
+
+void deleteList(Review* &head)
+{
+    Review* current = head;
+    while (current != nullptr)
+    {
+        head = current->next;
+        delete current;
+        current = head;
+    }
 }
