@@ -22,6 +22,7 @@ int getChoice();
 void stackReview(Review* &, Review*);
 void queueReview(Review* &, Review*);
 void displayReview(Review*);
+bool anotherReview();
 
 int main()
 {
@@ -29,15 +30,19 @@ int main()
     Review* queueHead = nullptr; // this head will always be at the end
     Review* aReview = getReview();
 
-    cout << "Which linked list method should we use?\n";
-    cout << "    [1] New nodes are added at the head of the linked list\n";
-    cout << "    [2] New nodes are added at the tail of the linked list\n";
-    int choice = getChoice();
+    do
+    {
+        cout << "Which linked list method should we use?\n";
+        cout << "    [1] New nodes are added at the head of the linked list\n";
+        cout << "    [2] New nodes are added at the tail of the linked list\n";
+        int choice = getChoice();
 
-    if (choice == 1)
-        stackReview(stackHead, aReview);
-    else
-        queueReview(queueHead, aReview);
+        if (choice == 1)
+            stackReview(stackHead, aReview);
+        else
+            queueReview(queueHead, aReview);
+    }
+    while (anotherReview());
 
     return 0;
 }
@@ -124,8 +129,21 @@ void displayReview(Review* head)
     const Review* current = head;
     if (current == nullptr)
         cout << "No reviews added yet\n";
+
+    cout << "Displaying all reviews:\n";
+    int i = 0;
+    double sum = 0;
     while (current != nullptr)
     {
-        if (head->)
+        cout << "    > Review #" << ++i << ": " << current->rating <<  ": " << current->comments << '\n';
+        sum += current->rating;
+        current = current->next;
     }
+}
+
+bool anotherReview()
+{
+    char yesOrNo;
+    cout << "Enter another review? Y/N: ";
+    cin
 }
