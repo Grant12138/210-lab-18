@@ -121,5 +121,10 @@ void queueReview(Review* &head, Review* aReview)
 void displayReview(Review* head)
 {
     const Review* current = head;
-    while (currenp)
+    if (current == nullptr)
+        cout << "No reviews added yet\n";
+    while (current != nullptr)
+    {
+        if (head->)
+    }
 }
