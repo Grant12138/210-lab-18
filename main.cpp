@@ -25,7 +25,8 @@ void displayReview(Review*);
 
 int main()
 {
-    Review* head = nullptr;
+    Review* stackHead = nullptr; // this head will always be at the front
+    Review* queueHead = nullptr; // this head will always be at the end
     Review* aReview = getReview();
 
     cout << "Which linked list method should we use?\n";
@@ -34,9 +35,9 @@ int main()
     int choice = getChoice();
 
     if (choice == 1)
-        stackReview(head, aReview);
+        stackReview(stackHead, aReview);
     else
-        queueReview(head, aReview);
+        queueReview(queueHead, aReview);
 
     return 0;
 }
