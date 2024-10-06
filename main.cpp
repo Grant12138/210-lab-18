@@ -10,10 +10,9 @@ struct Review
 {
     double rating;
     string comments;
-    Review* prev;
     Review* next;
 
-    Review() : rating(-1), comments("No Review"), prev(nullptr), next(nullptr) {}
+    Review() : rating(-1), comments("No Review"), next(nullptr) {}
 };
 
 // Function prototypes
@@ -27,26 +26,25 @@ void deleteList(Review* &);
 
 int main()
 {
-    Review* stackHead = nullptr; // this head will always be at the front
-    Review* queueHead = nullptr; // this head will always be at the end
+    Review* head = nullptr;
+
+    cout << "Which linked list method should we use?\n";
+    cout << "    [1] New nodes are added at the head of the linked list\n";
+    cout << "    [2] New nodes are added at the tail of the linked list\n";
+    int choice = getChoice();
 
     do
     {
-        cout << "Which linked list method should we use?\n";
-        cout << "    [1] New nodes are added at the head of the linked list\n";
-        cout << "    [2] New nodes are added at the tail of the linked list\n";
-        int choice = getChoice();
-
         if (choice == 1)
-            stackReview(stackHead, getReview());
+            stackReview(head, getReview());
         else
-            queueReview(queueHead, getReview());
+            queueReview(head, getReview());
     }
     while (anotherReview());
 
-    displayReview(stackHead);
+    displayReview(head);
 
-    deleteList(stackHead);
+    deleteList(head);
     stackHead = nullptr;
     queueHead = nullptr;
 
@@ -113,7 +111,6 @@ void stackReview(Review* &head, Review* aReview)
     else
     {
         aReview->next = head;
-        aReview->prev = head->prev;
         head = aReview;
     }
 }
