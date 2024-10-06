@@ -23,9 +23,12 @@ void queueReview(Review* &, Review*);
 void displayReview(Review*);
 bool anotherReview();
 void deleteList(Review* &);
+void print_id(string const& lab_desc);
 
 int main()
 {
+    print_id("Lab 18: Movie Reviews");
+
     Review* head = nullptr;
 
     cout << "Which linked list method should we use?\n";
@@ -33,9 +36,10 @@ int main()
     cout << "    [2] New nodes are added at the tail of the linked list\n";
     int choice = getChoice();
 
-    Review* aReview = new Review {};
     do
     {
+        Review* aReview = new Review {};
+
         if (choice == 1)
             stackReview(head, getReview(aReview));
         else
@@ -47,6 +51,7 @@ int main()
 
     deleteList(head);
 
+    cout << '\n';
     return 0;
 }
 
@@ -168,4 +173,13 @@ void deleteList(Review* &head)
         delete current;
         current = head;
     }
+}
+
+void print_id(string const& lab_desc)
+{
+    cout << "\nCOMSC210 | Grant Luo | " << lab_desc << "\n";
+    cout << "Editor: CLion\n";
+    cout << "Compiler: Apple clang version 16.0.0\n";
+    cout << "File: " << __FILE__ << "\n";
+    cout << "Compiled: " << __DATE__ << " at " << __TIME__ << "\n\n";
 }
