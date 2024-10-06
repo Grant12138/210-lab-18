@@ -12,7 +12,7 @@ struct Review
     string comments;
     Review* next;
 
-    Review() : rating(-1), comments("No Review"), next(nullptr) {}
+    Review() : rating(-1.0), comments("No Review"), next(nullptr) {}
 };
 
 // Function prototypes
@@ -29,8 +29,10 @@ int main()
 {
     print_id("Lab 18: Movie Reviews");
 
+    // Initialize linked list creation
     Review* head = nullptr;
 
+    // Obtain the user's choice of linked list method
     cout << "Which linked list method should we use?\n";
     cout << "    [1] New nodes are added at the head of the linked list\n";
     cout << "    [2] New nodes are added at the tail of the linked list\n";
@@ -38,23 +40,34 @@ int main()
 
     do
     {
+        // Dynamically allocate new memory for each new review
         Review* aReview = new Review {};
 
+        // Call the corresponding function
         if (choice == 1)
             stackReview(head, getReview(aReview));
         else
             queueReview(head, getReview(aReview));
     }
-    while (anotherReview());
+    while (anotherReview()); // Provide the option to keep adding reviews
 
+    // Display all the reviews
     displayReview(head);
 
+    // Free up dynamically allocated memory
     deleteList(head);
 
     cout << '\n';
     return 0;
 }
 
+/*******************************************************************************************
+ * FUNCTION: populates a new review
+ *
+ * @param aReview
+ *
+ * @return Review*
+ */
 Review* getReview(Review* &aReview)
 {
     // Get review rating
@@ -84,6 +97,13 @@ Review* getReview(Review* &aReview)
     return aReview;
 }
 
+/**********************************************************************
+ * FUNCTION: gets the user's choice of linked list method
+ *
+ * @param NONE
+ *
+ * @return int
+ */
 int getChoice()
 {
     while (true)
@@ -106,6 +126,14 @@ int getChoice()
     }
 }
 
+/******************************************************************
+ * FUNCTION: adds the new review to the front of the linked list
+ *
+ * @param head
+ * @param aReview
+ *
+ * @return NONE;
+ */
 void stackReview(Review* &head, Review* aReview)
 {
     if (head == nullptr)
@@ -117,6 +145,14 @@ void stackReview(Review* &head, Review* aReview)
     }
 }
 
+/************************************************************
+ * FUNCTION: adds the new review to the back of the linked list
+ *
+ * @param head
+ * @param aReview
+ *
+ * @return NONE;
+ */
 void queueReview(Review* &head, Review* aReview)
 {
     if (head == nullptr)
@@ -129,6 +165,13 @@ void queueReview(Review* &head, Review* aReview)
     }
 }
 
+/*******************************************************
+ * FUNCTION: displays all the reviews
+ *
+ * @param head
+ *
+ * @return NONE;
+ */
 void displayReview(Review* head)
 {
     const Review* current = head;
@@ -148,6 +191,13 @@ void displayReview(Review* head)
     cout << "    > Average: " << sum / i << '\n';
 }
 
+/************************************************
+ * FUNCTION: asks if the user wants to add another review to the linked list
+ *
+ * @return
+ *
+ * @return bool;
+ */
 bool anotherReview()
 {
     char yesOrNo;
@@ -164,6 +214,13 @@ bool anotherReview()
     }
 }
 
+/*********************************************
+ * FUNCTION: deletes the entire linked list
+ *
+ * @param head
+ *
+ * @return NONE;
+ */
 void deleteList(Review* &head)
 {
     Review* current = head;
