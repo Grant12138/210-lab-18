@@ -16,7 +16,7 @@ struct Review
 };
 
 // Function prototypes
-Review* getReview();
+Review* getReview(Review* &);
 int getChoice();
 void stackReview(Review* &, Review*);
 void queueReview(Review* &, Review*);
@@ -35,26 +35,23 @@ int main()
 
     do
     {
+        Review* aReview = new Review {};
         if (choice == 1)
-            stackReview(head, getReview());
+            stackReview(head, getReview(aReview));
         else
-            queueReview(head, getReview());
+            queueReview(head, getReview(aReview));
     }
     while (anotherReview());
 
     displayReview(head);
 
     deleteList(head);
-    stackHead = nullptr;
-    queueHead = nullptr;
 
     return 0;
 }
 
-Review* getReview()
+Review* getReview(Review* &aReview)
 {
-    Review* newReview = new Review();
-
     // Get review rating
     while (true)
     {
@@ -64,8 +61,8 @@ Review* getReview()
             string buf;
             cin >> buf;
             cin.ignore(1000, '\n');
-            newReview->rating = stod(buf);
-            if (newReview->rating >= 0.0 && newReview->rating <= 5.0)
+            aReview->rating = stod(buf);
+            if (aReview->rating >= 0.0 && aReview->rating <= 5.0)
                 break;
             cout << "Please enter a value between 0 and 5\n";
         }
@@ -77,9 +74,9 @@ Review* getReview()
 
     // Get review comments
     cout << "Enter review comments: ";
-    getline(cin, newReview->comments);
+    getline(cin, aReview->comments);
 
-    return newReview;
+    return aReview;
 }
 
 int getChoice()
@@ -121,9 +118,9 @@ void queueReview(Review* &head, Review* aReview)
         head = aReview;
     else
     {
-        head->next = aReview;
-        aReview->prev = head;
-        head = aReview;
+        static Review* current = head;
+        current->next = aReview;
+        current = aReview;
     }
 }
 
