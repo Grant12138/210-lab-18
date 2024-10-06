@@ -33,9 +33,9 @@ int main()
     cout << "    [2] New nodes are added at the tail of the linked list\n";
     int choice = getChoice();
 
+    Review* aReview = new Review {};
     do
     {
-        Review* aReview = new Review {};
         if (choice == 1)
             stackReview(head, getReview(aReview));
         else
